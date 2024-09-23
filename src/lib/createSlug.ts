@@ -1,4 +1,4 @@
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE } from '../consts'
 
 export default function createSlug(title: string, staticSlug: string) {
   return !SITE_TITLE
@@ -9,9 +9,9 @@ export default function createSlug(title: string, staticSlug: string) {
         // output lowercase
         .toLowerCase()
         // replace spaces
-        .replace(/\s+/g, "-")
+        .replace(/\s+/g, '-')
         // remove special characters
-        .replace(/[^\w-]/g, "")
+        .replace(/[^\w-]/g, '')
         // remove leading & trailing separtors
-        .replace(/^-+|-+$/g, "");
+        .replace(/^-+|-+$/g, '')
 }
