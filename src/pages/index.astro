@@ -1,6 +1,7 @@
 ---
 import { Button } from '@/components/ui/button'
 import BaseHead from '@/components/BaseHead.astro'
+import Header from '@/layouts/Header.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 import { getCollection } from 'astro:content'
 
@@ -84,6 +85,7 @@ const posts = (await getCollection('blog')).sort(
     </style>
   </head>
   <body>
+    <Header />
     <main>
       <section>
         <ul>
