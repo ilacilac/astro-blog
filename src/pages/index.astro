@@ -1,7 +1,6 @@
 ---
+import Layout from '@/layouts/Layout.astro'
 import { Button } from '@/components/ui/button'
-import BaseHead from '@/components/BaseHead.astro'
-import Header from '@/layouts/Header.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 import { getCollection } from 'astro:content'
 
@@ -12,37 +11,26 @@ const posts = (await getCollection('posts')).sort(
 )
 ---
 
-<!doctype html>
-<html lang="ko">
-  <head>
-    <!-- meta data -->
-  </head>
-  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-
-  <body>
-    <Header />
-    <main>
-      <section>
-        <ul>
-          {
-            posts.map((post) => (
-              <li>
-                <a href={`/posts/${post.slug}/`} class={styles['test']}>
-                  {/* <img width={720} height={360} src={post.data.heroImage} alt="" /> */}
-                  <h4 class="title">{post.data.title}</h4>
-                  {/* <p class="date">
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <main>
+    <section>
+      <ul>
+        {
+          posts.map((post) => (
+            <li>
+              <a href={`/posts/${post.slug}/`} class={styles['test']}>
+                {/* <img width={720} height={360} src={post.data.heroImage} alt="" /> */}
+                <h4 class="title">{post.data.title}</h4>
+                {/* <p class="date">
 										<FormattedDate date={post.data.pubDate} />
 									</p> */}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-        <Button>test</Button>
-      </section>
-    </main>
-    <!-- <Footer /> -->
-  </body>
-
-
-</html>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <Button>test</Button>
+    </section>
+  </main>
+  <!-- <Footer /> -->
+</Layout>
