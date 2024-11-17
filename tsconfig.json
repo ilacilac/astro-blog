@@ -1,13 +1,13 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
-  },
-
-  "moduleResolution": "node"
+    },
+    "moduleResolution": "node", // 추가 또는 확인
+    "resolveJsonModule": true // JSON 모듈 사용 허용
+  }
 }

@@ -1,23 +1,78 @@
 ---
-import { Calendar, Github, Home, Inbox, Search, Settings } from 'lucide-react'
+import { NotebookPen, Github, Home, Inbox, Search, Settings, CircleUserRound } from 'lucide-react'
+import { useState } from 'react'
+
+const [openNav, setOpenNav] = useState(false)
 ---
 
 <header>
-  <nav>
-    <a href="/about">About</a>
-    <a href="/"><Home /></a>
-    <a href="/posts">Posts</a>
-    <a href="https://github.com/ilacilac" target="_blank"><Github /></a>
-  </nav>
+  <!-- S : 헤더 좌측 -->
+  <div>
+    <nav>
+      <button
+        ><NotebookPen width={32} height={32} color="var(--gray-light)" /><p class="a11y-hidden">
+          탐색기
+        </p></button
+      >
+      <button
+        ><Search width={32} height={32} color="var(--gray-light)" /><p class="a11y-hidden">
+          검색
+        </p></button
+      >
+      <a href="https://github.com/ilacilac" target="_blank"
+        ><Github width={32} height={32} color="var(--gray-light)" /><p class="a11y-hidden">
+          Github 새 창 으로 바로가기
+        </p></a
+      >
+    </nav>
+    <!-- Nav 하단 -->
+    <div class="nav-bottom">
+      <a href="/about"
+        ><CircleUserRound width={32} height={32} color="var(--gray-light)" />
+        <p class="a11y-hidden">이력서</p>
+      </a>
+    </div>
+  </div>
+  <!-- E : 헤더 좌측 -->
+  <!-- S : 헤더 우측 -->
+  <div class="header-right"></div>
+  <!-- E : 헤더 우측 -->
 </header>
 
 <style>
   header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background: var(--secondary);
+    width: 60px;
   }
   nav {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
-    height: 100vh;
+
     /* color: #656b88; */
+  }
+  nav > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    /* background-color: aliceblue; */
+  }
+
+  .nav-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
   }
 </style>

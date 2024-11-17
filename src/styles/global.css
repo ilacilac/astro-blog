@@ -8,8 +8,8 @@
   --orange: #f48a6b;
   --yellow: #fac76a;
   --green: #b8db85;
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
+  --gray-light: #656b84;
+  --gray-dark: #1a1b23;
 }
 
 body {
@@ -106,6 +106,14 @@ blockquote {
 hr {
   border: none;
   border-top: 1px solid rgb(var(--gray-light));
+}
+.a11y-hidden {
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  clip-path: polygon(0 0, 0 0, 0 0);
 }
 @media (max-width: 720px) {
   body {
