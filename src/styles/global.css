@@ -185,4 +185,17 @@ hr {
   body {
     @apply bg-background text-foreground;
   }
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: 80px calc(100% - 80px);
+    grid-template-areas: 'header main';
+  }
+
+  header {
+    grid-area: header;
+  }
+  main {
+    grid-area: main;
+  }
 }

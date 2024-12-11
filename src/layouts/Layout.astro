@@ -12,7 +12,9 @@ let { title, description } = Astro.props
     <BaseHead title={title} description={description} />
   </head>
   <body>
-    <Header client:load />
-    <slot />
+    <div class="wrapper">
+      <Header />
+      <slot />
+    </div>
   </body>
 </html>
