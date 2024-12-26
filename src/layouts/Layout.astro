@@ -1,9 +1,21 @@
 ---
 import BaseHead from '@/components/BaseHead.astro'
 import Header from '@/components/Header'
+import { getCollection } from 'astro:content'
 // import Header from '@/components/Header.astro'
 
 let { title, description } = Astro.props
+type CategoryNamesType = 'posts'
+const CATEGORY_NAMES = ['posts']
+// 데이터 미리 패칭
+const contentsByCategory = await Promise.all(
+  CATEGORY_NAMES.map(async (name: CategoryNamesType) => {
+    const data = (await getCollection(name)).sort(
+      (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+    )
+    return { name, data }
+  })
+)
 ---
 
 <!doctype html>
@@ -13,7 +25,8 @@ let { title, description } = Astro.props
   </head>
   <body>
     <div class="wrapper">
-      <Header />
+      <Header contentsByCategory={contentsByCategory} client:load />
+      <!-- <Header contentsByCategory={contentsByCategory} /> -->
       <slot />
     </div>
   </body>

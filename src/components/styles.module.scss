@@ -47,5 +47,15 @@
     flex-direction: column;
     background-color: var(--secondary);
     border-left: 1px solid var(--gray-dark);
+    padding: 16px;
+    .header-title {
+      font-size: 0.875rem;
+      &.active-title {
+        font-weight: bold;
+      }
+    }
+    .header-content-title {
+      font-size: 0.875rem;
+    }
   }
 }

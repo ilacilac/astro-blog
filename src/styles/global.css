@@ -11,7 +11,10 @@
   --gray-light: #656b84;
   --gray-dark: #1a1b23;
 }
-
+html {
+  text-size-adjust: 100%;
+  font-size: 16px;
+}
 body {
   margin: 0;
   padding: 0;
@@ -20,15 +23,18 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: #fff;
-  font-size: 20px;
   line-height: 1.7;
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
 }
-main {
-  width: 720px;
-  max-width: calc(100% - 2em);
-  margin: auto;
-  padding: 3em 1em;
-}
+
 h1,
 h2,
 h3,
@@ -40,7 +46,7 @@ h6 {
   line-height: 1.2;
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 2.5rem;
 }
 h2 {
   font-size: 2.441em;
@@ -117,10 +123,10 @@ hr {
 }
 @media (max-width: 720px) {
   body {
-    font-size: 18px;
+    /* font-size: 18px; */
   }
   main {
-    padding: 1em;
+    /* padding: 1em; */
   }
 }
 @layer base {
@@ -188,7 +194,7 @@ hr {
 
   .wrapper {
     display: grid;
-    grid-template-columns: 80px calc(100% - 80px);
+    grid-template-columns: 260px calc(100% - 80px);
     grid-template-areas: 'header main';
   }
 
@@ -197,5 +203,9 @@ hr {
   }
   main {
     grid-area: main;
+    max-width: calc(100% - 260px);
+    width: 100%;
+    padding: 40px;
+    box-sizing: content-box;
   }
 }

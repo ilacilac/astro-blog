@@ -16,7 +16,9 @@ export default defineConfig({
     },
   },
   integrations: [
-    react(),
+    react({
+      experimentalReactChildren: true,
+    }),
     tailwind({
       applyBaseStyles: false,
     }),

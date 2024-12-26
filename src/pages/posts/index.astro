@@ -5,8 +5,10 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts'
 import { getCollection } from 'astro:content'
 import Layout from '@/layouts/Layout.astro'
 
+const nav = ['posts']
+
 const posts = (await getCollection('posts')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 )
 ---
 
@@ -35,9 +37,6 @@ const posts = (await getCollection('posts')).sort(
 <!-- <Footer /> -->
 
 <style>
-  main {
-    width: 960px;
-  }
   ul {
     display: flex;
     flex-wrap: wrap;
