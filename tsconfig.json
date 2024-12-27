@@ -8,6 +8,8 @@
       "@/*": ["src/*"]
     },
     "moduleResolution": "node", // 추가 또는 확인
-    "resolveJsonModule": true // JSON 모듈 사용 허용
+    "resolveJsonModule": true, // JSON 모듈 사용 허용
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }

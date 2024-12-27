@@ -1,9 +1,23 @@
 import { atom, map } from 'nanostores'
+import { persistentAtom } from '@nanostores/persistent'
 
 // 상태를 atom으로 선언
-export const expandedSections = atom<{ [key: string]: boolean }>({})
-export const activeTitle = atom<string | null>(null)
-export const activeItem = atom<string | null>(null)
+export const expandedSections = persistentAtom<{ [key: string]: boolean }>(
+  'expandedSections', // 로컬 스토리지에 저장될 키
+  {}, // 초기값
+  { encode: JSON.stringify, decode: JSON.parse } // 직렬화/역직렬화 방식
+)
+// activeTitle 상태를 관리하는 persistentAtom
+export const activeTitle = persistentAtom<string | null>('activeTitle', null, {
+  encode: JSON.stringify,
+  decode: JSON.parse,
+})
+
+// activeItem 상태를 관리하는 persistentAtom
+export const activeItem = persistentAtom<string | null>('activeItem', null, {
+  encode: JSON.stringify,
+  decode: JSON.parse,
+})
 
 // expandedSections 상태를 업데이트하는 함수
 export function setExpandedSections(name: string) {

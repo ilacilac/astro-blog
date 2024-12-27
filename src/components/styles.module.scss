@@ -49,13 +49,26 @@
     border-left: 1px solid var(--gray-dark);
     padding: 16px;
     .header-title {
+      display: flex;
+      align-items: center;
+      gap: 4px;
       font-size: 0.875rem;
+      color: #919bba;
+      &:hover {
+        color: #ffffff;
+      }
       &.active-title {
-        font-weight: bold;
+        color: #7ac1bb;
+        font-weight: 600;
       }
     }
     .header-content-title {
+      text-indent: 20px;
       font-size: 0.875rem;
+      color: #919bba;
+      &.active-title {
+        color: #ffffff;
+      }
     }
   }
 }
