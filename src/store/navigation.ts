@@ -20,14 +20,14 @@ export const activeItem = persistentAtom<string | null>('activeItem', null, {
 })
 
 // expandedSections 상태를 업데이트하는 함수
-export function setExpandedSections(name: string) {
+export function setExpandedSections(name: string, state?: boolean) {
   // 현재 상태 가져오기
   const currentState = expandedSections.get()
 
   // 해당 섹션의 상태를 반전시킴
   expandedSections.set({
     ...currentState, // 기존 상태 유지
-    [name]: !currentState[name], // 해당 섹션의 값만 반전
+    [name]: state ? state : !currentState[name], // 해당 섹션의 값만 반전
   })
 }
 

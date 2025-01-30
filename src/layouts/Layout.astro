@@ -1,6 +1,7 @@
 ---
 import BaseHead from '@/components/BaseHead.astro'
 import Header from '@/components/Header'
+import { addContents, contentsAtom } from '@/store/contents'
 import { getCollection } from 'astro:content'
 // import Header from '@/components/Header.astro'
 
@@ -26,6 +27,7 @@ const contentsByCategory = await Promise.all(
   <body>
     <div class="wrapper">
       <Header contentsByCategory={contentsByCategory} client:load />
+      <!-- <Header client:load /> -->
       <!-- <Header contentsByCategory={contentsByCategory} /> -->
       <slot />
     </div>
