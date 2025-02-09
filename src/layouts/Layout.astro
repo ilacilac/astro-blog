@@ -1,13 +1,22 @@
 ---
-import BaseHead from '@/components/BaseHead.astro'
-import Header from '@/components/Header'
-import { addContents, contentsAtom } from '@/store/contents'
+import BaseHead from '@/layouts/BaseHead.astro'
 import { getCollection } from 'astro:content'
-// import Header from '@/components/Header.astro'
+import {
+  Folder,
+  Github,
+  HomeIcon,
+  Search,
+  NotebookPen,
+  CircleUserRound,
+  FolderOpen,
+} from 'lucide-react'
+import '@/components/Header/styles.scss'
+import CategoryList from '@/components/Header/CategoryList'
 
 let { title, description } = Astro.props
 type CategoryNamesType = 'posts'
 const CATEGORY_NAMES = ['posts']
+
 // 데이터 미리 패칭
 const contentsByCategory = await Promise.all(
   CATEGORY_NAMES.map(async (name: CategoryNamesType) => {
@@ -17,6 +26,9 @@ const contentsByCategory = await Promise.all(
     return { name, data }
   })
 )
+
+// 현재 페이지 URL 가져오기
+const currentPath = Astro.url.pathname
 ---
 
 <!doctype html>
@@ -26,9 +38,68 @@ const contentsByCategory = await Promise.all(
   </head>
   <body>
     <div class="wrapper">
-      <Header contentsByCategory={contentsByCategory} client:load />
-      <!-- <Header client:load /> -->
-      <!-- <Header contentsByCategory={contentsByCategory} /> -->
+      <header class="header">
+        <!-- S : 헤더 좌측 -->
+        <div class="header-left">
+          <nav class="nav-top">
+            <button>
+              <a href="/" class={currentPath === '/' ? 'active' : ''}>
+                {
+                  currentPath === '/' ? (
+                    <HomeIcon width="32" height="32" color="#dce2fa" />
+                  ) : (
+                    <HomeIcon width="32" height="32" color="var(--gray-light)" />
+                  )
+                }
+                <p class="a11y-hidden">홈</p>
+              </a>
+            </button>
+            <button>
+              <NotebookPen width="32" height="32" color="var(--gray-light)" />
+              <p class="a11y-hidden">탐색기</p>
+            </button>
+            <button>
+              <Search width="32" height="32" color="var(--gray-light)" />
+              <p class="a11y-hidden">검색</p>
+            </button>
+            <button>
+              <a href="https://github.com/ilacilac" target="_blank">
+                <Github width="32" height="32" color="var(--gray-light)" />
+                <p class="a11y-hidden">Github 새 창으로 바로가기</p>
+              </a>
+            </button>
+          </nav>
+          <div class="nav-bottom">
+            <button>
+              <a href="/about" class={currentPath === '/about' ? 'active' : ''}>
+                <CircleUserRound width="32" height="32" color="var(--gray-light)" />
+                <p class="a11y-hidden">이력서</p>
+              </a>
+            </button>
+          </div>
+        </div>
+        <!-- E : 헤더 좌측 -->
+
+        <!-- S : 헤더 우측 -->
+        <div class="header-right">
+          {
+            contentsByCategory.map(({ name, data }) => {
+              const isActiveCategory = currentPath.startsWith(`/${name}`)
+              return (
+                <CategoryList
+                  client:load
+                  name={name}
+                  data={data}
+                  isActiveCategory={isActiveCategory}
+                  currentPath={currentPath}
+                />
+              )
+            })
+          }
+        </div>
+        <!-- E : 헤더 우측 -->
+      </header>
+
       <slot />
     </div>
   </body>
