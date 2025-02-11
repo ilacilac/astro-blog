@@ -198,14 +198,36 @@ hr {
     grid-template-areas: 'header main';
   }
 
-  header {
-    grid-area: header;
-  }
   main {
     grid-area: main;
     max-width: calc(100% - 260px);
     width: 100%;
     padding: 40px;
     box-sizing: content-box;
+
+    grid-area: main;
+    width: 100%;
+    padding: 40px;
+    padding-top: 60px; /* header 아래 위치 */
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    display: grid;
+    grid-template-rows: 60px auto; /* header는 60px, 나머지는 main */
+    grid-template-columns: unset;
+    grid-template-areas:
+      'header'
+      'main';
+
+    main {
+      grid-area: main;
+      max-width: 100%;
+      width: 100%;
+      padding: 40px;
+      box-sizing: border-box;
+    }
   }
 }

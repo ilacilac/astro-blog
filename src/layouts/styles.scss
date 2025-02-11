@@ -6,6 +6,7 @@
   left: 0;
   height: 100vh;
   background: var(--secondary);
+  grid-area: header;
 
   .header-left {
     width: 60px;
@@ -39,7 +40,6 @@
       cursor: pointer;
     }
   }
-
   .header-right {
     width: 200px;
     height: 100%;
@@ -69,6 +69,33 @@
       &.active-title {
         color: #ffffff;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    width: 100%;
+    height: 60px;
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // display: flex;
+    // flex-direction: row;
+    // background: var(--secondary);
+    // z-index: 1000;
+
+    .header-left {
+      width: 100%;
+      height: 60px;
+      flex-direction: row;
+
+      .nav-top {
+        flex-direction: row;
+      }
+    }
+    .header-right {
+      display: none;
     }
   }
 }
