@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import { Button } from '@/components/ui/button'
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts'
 import { getCollection } from 'astro:content'
+import { formatDate } from '@/lib/utils'
 
 import styles from './styles.module.scss'
 
@@ -12,24 +13,26 @@ const posts = (await getCollection('posts')).sort(
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <main>
+  <main class={styles['main']}>
     <section>
-      <ul>
+      <h2 class="a11y-hidden">RECENT POSTS</h2>
+      <ul class={styles['posts-wrap']}>
         {
           posts.map((post) => (
             <li>
-              <a href={`/posts/${post.slug}/`} class={styles['test']}>
+              <a href={`/posts/${post.slug}/`} class={styles['link']}>
                 {/* <img width={720} height={360} src={post.data.heroImage} alt="" /> */}
-                <h4 class="title">{post.data.title}</h4>
-                {/* <p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p> */}
+                <p class={styles['date']}>{formatDate(post.data.date)}</p>
+                <div class={styles['title-wrap']}>
+                  <h3 class={styles['title']}>{post.data.title}</h3>
+                  <h4 class={styles['description']}>{post.data.description}</h4>
+                </div>
               </a>
             </li>
           ))
         }
       </ul>
-      <Button>test</Button>
+      <!-- <Button>test</Button> -->
     </section>
   </main>
   <!-- <Footer /> -->

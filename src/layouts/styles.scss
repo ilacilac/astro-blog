@@ -52,8 +52,9 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 0.875rem;
+      font-size: 1.2rem;
       color: #919bba;
+      text-transform: uppercase;
       &:hover {
         color: #ffffff;
       }
@@ -62,12 +63,16 @@
         font-weight: 600;
       }
     }
-    .header-content-title {
-      text-indent: 20px;
-      font-size: 0.875rem;
-      color: #919bba;
-      &.active-title {
-        color: #ffffff;
+    .header-content-wrap {
+      margin: 4px;
+      .header-content-title {
+        text-indent: 20px;
+        font-size: 1rem;
+        color: #919bba;
+
+        &.active-title {
+          color: #ffffff;
+        }
       }
     }
   }

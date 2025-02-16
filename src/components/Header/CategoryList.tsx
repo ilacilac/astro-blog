@@ -1,4 +1,12 @@
-import { useEffect, useState } from 'react'
+import {
+  useEffect,
+  useState,
+  type JSXElementConstructor,
+  type Key,
+  type ReactElement,
+  type ReactNode,
+  type ReactPortal,
+} from 'react'
 import { Folder, FolderOpen } from 'lucide-react'
 
 export default function CategoryList({ name, data, isActiveCategory }: any) {
@@ -16,24 +24,37 @@ export default function CategoryList({ name, data, isActiveCategory }: any) {
         style={{ cursor: 'pointer' }}
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? <FolderOpen size={16} /> : <Folder size={16} />}
+        {isOpen ? <FolderOpen size={20} /> : <Folder size={20} />}
         {name}
       </div>
 
       {isOpen && (
-        <ul>
-          {data.map((item) => {
-            const isActivePost = currentPath === `/${name}/${item.slug}` // 현재 경로와 비교
+        <ul className="header-content-wrap">
+          {data.map(
+            (item: {
+              slug: Key
+              data: {
+                title:
+                  | string
+                  | number
+                  | boolean
+                  | ReactElement<any, string | JSXElementConstructor<any>>
+                  | Iterable<ReactNode>
+                  | ReactPortal
+              }
+            }) => {
+              const isActivePost = currentPath.includes(`/${name}/${item.slug}`)
 
-            return (
-              <li
-                key={item.slug}
-                className={`header-content-title ${isActivePost ? 'active-title' : ''}`}
-              >
-                <a href={`/${name}/${item.slug}`}>{item.data.title}</a>
-              </li>
-            )
-          })}
+              return (
+                <li
+                  key={item.slug}
+                  className={`header-content-title ${isActivePost ? 'active-title' : ''}`}
+                >
+                  <a href={`/${name}/${item.slug}`}>{item.data.title}</a>
+                </li>
+              )
+            }
+          )}
         </ul>
       )}
     </div>
