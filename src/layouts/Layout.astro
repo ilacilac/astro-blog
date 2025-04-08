@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import './styles.scss'
 import CategoryList from '@/components/Header/CategoryList'
+import SidebarToggle from './SidebarToggle.astro'
 
 let { title, description } = Astro.props
 type CategoryNamesType = 'posts'
@@ -29,6 +30,11 @@ const contentsByCategory = await Promise.all(
 
 // 현재 페이지 URL 가져오기
 const currentPath = Astro.url.pathname
+let isOpenNavigation = true
+
+const handleOpenNavigation = () => {
+  isOpenNavigation = !isOpenNavigation
+}
 ---
 
 <!doctype html>
@@ -36,68 +42,10 @@ const currentPath = Astro.url.pathname
   <head>
     <BaseHead title={title} description={description} />
   </head>
-  <body>
+  <body class="sidebar-open">
     <div class="wrapper">
       <header class="header">
-        <!-- S : 헤더 좌측 -->
-        <div class="header-left">
-          <nav class="nav-top">
-            <button>
-              <a href="/" class={currentPath === '/' ? 'active' : ''}>
-                {
-                  currentPath === '/' ? (
-                    <HomeIcon width="32" height="32" color="#dce2fa" />
-                  ) : (
-                    <HomeIcon width="32" height="32" color="var(--gray-light)" />
-                  )
-                }
-                <p class="a11y-hidden">홈</p>
-              </a>
-            </button>
-            <button>
-              <NotebookPen width="32" height="32" color="var(--gray-light)" />
-              <p class="a11y-hidden">탐색기</p>
-            </button>
-            <button>
-              <Search width="32" height="32" color="var(--gray-light)" />
-              <p class="a11y-hidden">검색</p>
-            </button>
-            <button>
-              <a href="https://github.com/ilacilac" target="_blank">
-                <Github width="32" height="32" color="var(--gray-light)" />
-                <p class="a11y-hidden">Github 새 창으로 바로가기</p>
-              </a>
-            </button>
-          </nav>
-          <div class="nav-bottom">
-            <button>
-              <a href="/about" class={currentPath === '/about' ? 'active' : ''}>
-                <CircleUserRound width="32" height="32" color="var(--gray-light)" />
-                <p class="a11y-hidden">이력서</p>
-              </a>
-            </button>
-          </div>
-        </div>
-        <!-- E : 헤더 좌측 -->
-
-        <!-- S : 헤더 우측 -->
-        <div class="header-right">
-          {
-            contentsByCategory.map(({ name, data }) => {
-              const isActiveCategory = currentPath.startsWith(`/${name}`)
-              return (
-                <CategoryList
-                  client:load
-                  name={name}
-                  data={data}
-                  isActiveCategory={isActiveCategory}
-                  currentPath={currentPath}
-                />
-              )
-            })
-          }
-        </div>
-        <!-- E : 헤더 우측 -->
+        <SidebarToggle contentsByCategory={contentsByCategory} currentPath={currentPath} />
       </header>
 
       <slot />

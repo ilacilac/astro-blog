@@ -191,17 +191,26 @@ hr {
   }
   body {
     @apply bg-background text-foreground;
+    &.sidebar-open {
+      .wrapper {
+        grid-template-columns: 260px calc(100% - 80px);
+      }
+      main {
+        max-width: calc(100% - 260px);
+      }
+    }
   }
 
   .wrapper {
+    transition: all 0.5s;
     display: grid;
-    grid-template-columns: 260px calc(100% - 80px);
+    grid-template-columns: 60px calc(100% - 80px);
     grid-template-areas: 'header main';
   }
 
   main {
     grid-area: main;
-    max-width: calc(100% - 260px);
+    max-width: 100%;
     width: 100%;
     padding: 40px;
     box-sizing: content-box;

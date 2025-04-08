@@ -9,11 +9,15 @@
   grid-area: header;
 
   .header-left {
+    position: fixed;
+    left: 0;
+    z-index: 10;
     width: 60px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background: #090b10;
     .nav-top {
       display: flex;
       flex-direction: column;
@@ -48,11 +52,19 @@
     background-color: var(--secondary);
     border-left: 1px solid var(--gray-dark);
     padding: 16px;
+
+    position: fixed;
+    z-index: 1;
+    left: -260px;
+    transition: all 0.5s;
+    &.open {
+      left: 60px;
+    }
     .header-title {
       display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #919bba;
       text-transform: uppercase;
       &:hover {
