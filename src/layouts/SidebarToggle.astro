@@ -4,4 +4,4 @@ import Sidebar from '@/components/Sidebar/Sidebar'
 const { contentsByCategory, currentPath } = Astro.props
 ---
 
-<Sidebar client:load contentsByCategory={contentsByCategory} currentPath={currentPath} />
+<Sidebar client:only="react" contentsByCategory={contentsByCategory} currentPath={currentPath} />

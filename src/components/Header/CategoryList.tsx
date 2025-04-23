@@ -9,52 +9,81 @@ import {
 } from 'react'
 import { Folder, FolderOpen } from 'lucide-react'
 
-export default function CategoryList({ name, data, isActiveCategory }: any) {
-  const [isOpen, setIsOpen] = useState(isActiveCategory)
-  const [currentPath, setCurrentPath] = useState('')
+// 타입 정의 개선
+interface PostItem {
+  slug: string
+  data: {
+    title: string
+    date: Date
+    [key: string]: any
+  }
+}
 
-  useEffect(() => {
-    setCurrentPath(window.location.pathname) // 현재 경로를 상태에 저장
-  }, [])
+interface CategoryListProps {
+  name: string
+  data: PostItem[]
+  isActiveCategory: boolean
+  currentPath: string
+}
+
+export default function CategoryList({
+  name,
+  data,
+  isActiveCategory,
+  currentPath,
+}: CategoryListProps) {
+  const [isOpen, setIsOpen] = useState(isActiveCategory)
+
+  // 항목 수를 보여주는 뱃지 텍스트
+  const badgeText = `${data.length} ${data.length === 1 ? 'item' : 'items'}`
 
   return (
-    <div>
-      <div
-        className={`header-title ${isOpen ? 'active-title' : ''}`}
-        style={{ cursor: 'pointer' }}
+    <div className="mb-4">
+      <button
+        className={`flex items-center justify-between w-full px-2 py-1 rounded hover:bg-[var(--gray-dark)] transition-colors ${isOpen ? 'text-[var(--text-color)]' : 'text-[var(--gray-light)]'}`}
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={`category-${name}`}
       >
-        {isOpen ? <FolderOpen size={20} /> : <Folder size={20} />}
-        {name}
-      </div>
+        <div className="flex items-center gap-2">
+          {isOpen ? (
+            <FolderOpen size={20} aria-hidden="true" />
+          ) : (
+            <Folder size={20} aria-hidden="true" />
+          )}
+          <span className="capitalize">{name}</span>
+        </div>
+        <span className="text-xs text-[var(--gray-light)] bg-[var(--gray-dark)] px-2 py-0.5 rounded-full">
+          {badgeText}
+        </span>
+      </button>
 
       {isOpen && (
-        <ul className="header-content-wrap">
-          {data.map(
-            (item: {
-              slug: Key
-              data: {
-                title:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | Iterable<ReactNode>
-                  | ReactPortal
-              }
-            }) => {
-              const isActivePost = currentPath.includes(`/${name}/${item.slug}`)
+        <ul
+          id={`category-${name}`}
+          className="mt-2 pl-6 space-y-2"
+          role="region"
+          aria-label={`${name} 목록`}
+        >
+          {data.map((item: PostItem) => {
+            const isActivePost = currentPath.includes(`/${name}/${item.slug}`)
+            const postPath = `/${name}/${item.slug}`
 
-              return (
-                <li
-                  key={item.slug}
-                  className={`header-content-title ${isActivePost ? 'active-title' : ''}`}
+            return (
+              <li
+                key={item.slug}
+                className={`text-sm ${isActivePost ? 'text-[var(--text-color)] font-medium' : 'text-[var(--gray-light)]'}`}
+              >
+                <a
+                  href={postPath}
+                  className="hover:text-[var(--text-color)] transition-colors block py-1 px-2 rounded hover:bg-[var(--gray-dark)]"
+                  aria-current={isActivePost ? 'page' : undefined}
                 >
-                  <a href={`/${name}/${item.slug}`}>{item.data.title}</a>
-                </li>
-              )
-            }
-          )}
+                  {item.data.title}
+                </a>
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>

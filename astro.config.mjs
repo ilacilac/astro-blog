@@ -15,6 +15,7 @@ export default defineConfig({
       },
     },
   },
+  output: 'hybrid',
   integrations: [
     react({
       experimentalReactChildren: true,
