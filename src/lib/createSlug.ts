@@ -1,8 +1,10 @@
-import { SITE_TITLE } from '../consts'
+import { GENERATE_SLUG_FROM_TITLE } from '../config'
 
-export default function createSlug(title: string, staticSlug: string) {
-  return !SITE_TITLE
-    ? staticSlug
+export default function createSlug(title: string, slug: string | string[]) {
+  const normalizedSlug = Array.isArray(slug) ? slug.join('-') : slug.split('/').join('-')
+
+  return !GENERATE_SLUG_FROM_TITLE
+    ? normalizedSlug
     : title
         // remove leading & trailing whitespace
         .trim()
@@ -14,4 +16,17 @@ export default function createSlug(title: string, staticSlug: string) {
         .replace(/[^\w-]/g, '')
         // remove leading & trailing separtors
         .replace(/^-+|-+$/g, '')
+  // return !GENERATE_SLUG_FROM_TITLE
+  //   ? normalizedSlug
+  //   : normalizedSlug
+  //       .split('/')
+  //       .map((part) =>
+  //         title
+  //           .trim()
+  //           .toLowerCase()
+  //           .replace(/\s+/g, '-')
+  //           .replace(/[^\w-]/g, '')
+  //           .replace(/^-+|-+$/g, '')
+  //       )
+  //       .join('-')
 }
