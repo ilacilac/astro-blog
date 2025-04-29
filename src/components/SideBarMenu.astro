@@ -1,0 +1,298 @@
+---
+import {
+  Folder,
+  Github,
+  HomeIcon,
+  Search,
+  NotebookPen,
+  CircleUserRound,
+  FolderOpen,
+} from '@lucide/astro'
+import { getCollection, type CollectionEntry } from 'astro:content'
+import createSlug from 'src/lib/createSlug'
+
+const { sideBarActiveItemID } = Astro.props
+const activeClass = 'text-success' // For primary color replace with `active` class
+const currentPath = Astro.url.pathname
+
+type BlogPost = CollectionEntry<'blog'>
+const allBlogPosts = await getCollection('blog')
+const folders: Record<string, BlogPost[]> = {}
+const rootPosts: BlogPost[] = []
+
+allBlogPosts.forEach((post) => {
+  if (post.slug.includes('/')) {
+    const [folder, fileSlug] = post.slug.split('/')
+    if (!folders[folder]) folders[folder] = []
+    folders[folder].push(post)
+  } else {
+    rootPosts.push(post)
+  }
+})
+
+console.log('currentPath', currentPath)
+---
+
+<ul class={`menu menu-xs bg-base-200 rounded-box max-w-xs w-full overflow-y-auto grow shrink`}>
+  <li class={`${sideBarActiveItemID === 'home' ? activeClass : ''}`}>
+    <a href="/">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        ></path>
+      </svg>
+      HOME
+    </a>
+  </li>
+  <li>
+    <details open>
+      <summary class={`${sideBarActiveItemID === 'blog' ? activeClass : ''}`}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="h-4 w-4"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+          ></path>
+        </svg>POSTS</summary
+      >
+      <ul>
+        {
+          rootPosts.map((post) => (
+            <li
+              class={`${currentPath === `/blog/${createSlug(post.data.title, post.slug)}` ? activeClass : ''}`}
+            >
+              <a href={`/blog/${createSlug(post.data.title, post.slug)}`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-4 w-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+                {post.data.title}
+              </a>
+            </li>
+          ))
+        }
+        {
+          Object.entries(folders).map(([folderName, posts]) => {
+            const decodedCurrentPath = decodeURIComponent(currentPath)
+            // folder 자체가 active인지 체크
+            const isFolderActive = posts.some(
+              (post) => decodedCurrentPath === `/blog/${createSlug(post.data.title, post.slug)}`
+            )
+
+            return (
+              <li>
+                <details open>
+                  <summary class={`${isFolderActive ? activeClass : ''}`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="h-4 w-4"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+                      />
+                    </svg>
+                    {folderName}
+                  </summary>
+
+                  <ul>
+                    {posts.map((post) => {
+                      const decodedCurrentPath = decodeURIComponent(currentPath)
+                      const slugPath = `/blog/${createSlug(post.data.title, post.slug)}`
+                      const isActive = decodedCurrentPath === slugPath
+                      return (
+                        <li class={`${isActive ? activeClass : ''}`}>
+                          <a href={slugPath}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              class="h-4 w-4"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                              />
+                            </svg>
+                            {post.data.title}
+                          </a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </details>
+              </li>
+            )
+          })
+        }
+      </ul>
+    </details>
+  </li>
+  <li>
+    <a>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-4 w-4"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+        ></path>
+      </svg>
+      resume.pdf
+    </a>
+  </li>
+  <li>
+    <a href="https://github.com/ilacilac" target="_blank">
+      <Github class="h-4 w-4" />
+      Github
+    </a>
+  </li>
+</ul>
+<!-- <ul class="menu grow shrink menu-md overflow-y-auto">
+  <li>
+    <a
+      class={`py-3 text-base flex items-center ${sideBarActiveItemID === 'home' ? activeClass : ''}`}
+      id="home"
+      href="/"
+    >
+      <HomeIcon class="w-4 h-4 mr-2" color={sideBarActiveItemID === 'home' ? '#fff' : '#666'} />
+      <span>Home</span>
+    </a>
+  </li>
+  <li>
+    <a
+      class={`py-3 text-base flex items-center ${sideBarActiveItemID === 'projects' ? activeClass : ''}`}
+      id="projects"
+      href="/projects"
+    >
+      <Folder class="w-4 h-4 mr-2" color={sideBarActiveItemID === 'projects' ? '#fff' : '#666'} />
+      <span>Projects</span>
+    </a>
+  </li>
+  <li>
+    <a
+      class={`py-3 text-base flex items-center ${sideBarActiveItemID === 'services' ? activeClass : ''}`}
+      id="services"
+      href="/services"
+    >
+      <NotebookPen
+        class="w-4 h-4 mr-2"
+        color={sideBarActiveItemID === 'services' ? '#fff' : '#666'}
+      />
+      <span>Services</span>
+    </a>
+  </li>
+  <li>
+    <a
+      class={`py-3 text-base flex items-center ${sideBarActiveItemID === 'store' ? activeClass : ''}`}
+      id="store"
+      href="/store"
+    >
+      <FolderOpen class="w-4 h-4 mr-2" color={sideBarActiveItemID === 'store' ? '#fff' : '#666'} />
+      <span>Store</span>
+    </a>
+  </li>
+  <li>
+    <a
+      class={`py-3 text-base flex items-center ${sideBarActiveItemID === 'blog' ? activeClass : ''}`}
+      id="blog"
+      href="/blog/"
+    >
+      <Search class="w-4 h-4 mr-2" color={sideBarActiveItemID === 'blog' ? '#fff' : '#666'} />
+      <span>Blog</span>
+    </a>
+  </li>
+  <li>
+    <a
+      class={`py-3 text-base flex items-center ${sideBarActiveItemID === 'cv' ? activeClass : ''}`}
+      id="cv"
+      href="/cv"
+    >
+      <CircleUserRound
+        class="w-4 h-4 mr-2"
+        color={sideBarActiveItemID === 'cv' ? '#fff' : '#666'}
+      />
+      <span>CV</span>
+    </a>
+  </li>
+  <li>
+    <a
+      class="py-3 text-base flex items-center"
+      href="mailto:dev.ilacilac@gmail.com"
+      target="_blank"
+      referrerpolicy="no-referrer-when-downgrade"
+    >
+      <Github class="w-4 h-4 mr-2" color="#666" />
+      <span>Contact</span>
+    </a>
+  </li>
+</ul> -->
+
+<style>
+  /* DaisyUI 메뉴 스타일 보강 */
+  .menu {
+    padding: 1rem;
+  }
+
+  .menu li {
+    margin-bottom: 0.5rem;
+  }
+
+  .menu a {
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+  }
+
+  .menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .menu a.bg-base-300 {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+  }
+</style>
+
+<script define:vars={{ sideBarActiveItemID: sideBarActiveItemID, activeClass: activeClass }}>
+  const activeItemElem = document.getElementById(sideBarActiveItemID)
+  activeItemElem && activeItemElem.classList.add(activeClass)
+</script>

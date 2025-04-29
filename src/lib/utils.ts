@@ -3,8 +3,9 @@ import fs from 'fs'
 import path from 'path'
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { collections } from '@/content/config'
+
 import { getCollection } from 'astro:content'
+import { collections } from 'src/content/config'
 
 // 컬렉션 이름 타입 가져오기
 type CollectionName = 'posts'

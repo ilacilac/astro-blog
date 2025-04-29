@@ -1,7 +1,0 @@
----
-import Sidebar from '@/components/Sidebar/Sidebar'
-
-const { contentsByCategory, currentPath } = Astro.props
----
-
-<Sidebar client:only="react" contentsByCategory={contentsByCategory} currentPath={currentPath} />
