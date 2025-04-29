@@ -11,7 +11,7 @@ export async function getStaticPaths({ paginate }) {
   })
 
   return all_tags.flatMap((tag) => {
-    const filtred_posts = all_posts.filter((post) => {
+    const filtred_posts = all_posts?.filter((post) => {
       return post.data.tags?.includes(tag)
     })
     return paginate(filtred_posts, {

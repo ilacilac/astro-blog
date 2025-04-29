@@ -5,6 +5,7 @@ import netlify from '@astrojs/netlify'
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://ilacilac.netlify.app/',
   vite: {
     css: {
       preprocessorOptions: {
@@ -14,12 +15,10 @@ export default defineConfig({
       },
     },
   },
-  output: 'hybrid',
   integrations: [
     react({
       experimentalReactChildren: true,
     }),
     tailwind(),
   ],
-  adapter: netlify(),
 })
