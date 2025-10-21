@@ -13,7 +13,14 @@ export default defineConfig({
         },
       },
     },
+    resolve: {
+      alias: {
+        '@layouts': '/src/layouts',
+        '@components': '/src/components',
+      },
+    },
   },
+
   integrations: [
     react({
       experimentalReactChildren: true,

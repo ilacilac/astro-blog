@@ -1,11 +1,14 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "strictNullChecks": true,
+    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"]
-    }
-  }
+    },
+    "strictNullChecks": true
+  },
+  "include": ["src", "src/**/*.astro"]
 }

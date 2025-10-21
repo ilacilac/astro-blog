@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
-import HorizontalCard from '../components/HorizontalCard.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import HorizontalCard from '@components/HorizontalCard.astro'
 import { getCollection } from 'astro:content'
 import createSlug from '../lib/createSlug'
 
@@ -16,11 +16,17 @@ console.log('posts', posts)
 <BaseLayout sideBarActiveItemID="home">
   <div class="pb-12 mt-5">
     <div class="text-xl py-1">안녕하세요 👋</div>
-    <div class="text-5xl font-bold leading-[60px]">프론트엔드 개발자 <br />박민지 입니다.</div>
+    <div class="mt-4 text-5xl font-bold leading-[60px]">
+      4년차 프론트엔드 개발자 <br />박민지 입니다.
+    </div>
 
-    <div class="py-2">
-      <p class="text-lg">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, reiciendis?
+    <div class="mt-4">
+      <p class="text-lg text-[#ededed] leading-[1.6]">
+        타이트한 일정 속에서도 팀원들과 적극적으로 협업하여,<br />
+        주어진 시간 내에 최적화된 결과물을 지속적으로 만들어냈습니다.<br />
+        UI/UX 개선과 성능 최적화 등 코드 품질 향상에 높은 관심을 가지고 있으며,<br />
+        프로젝트를 진행할 때마다 스스로 회고를 통해 아쉬웠던 부분을 분석하고,<br />
+        다음 프로젝트에 반영하여 점진적으로 개선해 나가는 개발을 지향합니다.
       </p>
     </div>
     <div class="mt-8">
