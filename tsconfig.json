@@ -1,14 +1,14 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      // "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"]
     },
     "strictNullChecks": true
   },
-  "include": ["src", "src/**/*.astro"]
+  "include": ["src", "src/**/*.astro", "src/types"]
 }

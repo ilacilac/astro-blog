@@ -17,9 +17,6 @@ importers:
       '@astrojs/tailwind':
         specifier: ^6.0.2
         version: 6.0.2(astro@4.16.13(@types/node@22.9.0)(rollup@4.40.1)(sass-embedded@1.81.0)(typescript@5.6.3))(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.9.0)(typescript@5.6.3)))(ts-node@10.9.2(@types/node@22.9.0)(typescript@5.6.3))
-      '@lucide/astro':
-        specifier: ^0.503.0
-        version: 0.503.0(astro@4.16.13(@types/node@22.9.0)(rollup@4.40.1)(sass-embedded@1.81.0)(typescript@5.6.3))
       '@nanostores/persistent':
         specifier: ^0.10.2
         version: 0.10.2(nanostores@0.11.3)
@@ -550,11 +547,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
-
-  '@lucide/astro@0.503.0':
-    resolution: {integrity: sha512-dmHgsCH8wNcSRmjq4NNK7qYRVdmUhIyRkLZjWyHG9YZRNDs6PYYSjyVk09+tJxswRJ5VItzd8XcAkZDilg4qXA==}
-    peerDependencies:
-      astro: ^4 || ^5
 
   '@nanostores/persistent@0.10.2':
     resolution: {integrity: sha512-BEndnLhRC+yP7gXTESepBbSj8XNl8OXK9hu4xAgKC7MWJHKXnEqJMqY47LUyHxK6vYgFnisyHmqq+vq8AUFyIg==}
@@ -3133,10 +3125,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
     optional: true
-
-  '@lucide/astro@0.503.0(astro@4.16.13(@types/node@22.9.0)(rollup@4.40.1)(sass-embedded@1.81.0)(typescript@5.6.3))':
-    dependencies:
-      astro: 4.16.13(@types/node@22.9.0)(rollup@4.40.1)(sass-embedded@1.81.0)(typescript@5.6.3)
 
   '@nanostores/persistent@0.10.2(nanostores@0.11.3)':
     dependencies:
