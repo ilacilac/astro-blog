@@ -8,7 +8,8 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"]
     },
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "skipLibCheck": true
   },
-  "include": ["src", "src/**/*.astro", "src/types"]
+  "include": ["src", "src/**/*.astro", "src/types", ".astro/types.d.ts"]
 }
