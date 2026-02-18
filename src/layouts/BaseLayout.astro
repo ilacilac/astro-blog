@@ -24,12 +24,12 @@ const {
     {TRANSITION_API && <ViewTransitions />}
   </head>
   <body>
+    <Header title={SITE_TITLE} />
     <div class="bg-base-100 drawer lg:drawer-open">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content bg-base-100">
-        <Header title={SITE_TITLE} />
+      <div class="drawer-content bg-base-100 pt-16 lg:ml-[19rem]">
         <div class="md:flex md:justify-center">
-          <main class="p-6 pt-10 lg:max-w-[900px] max-w-[100vw] w-full">
+          <main class="p-6 pt-10 lg:max-w-[1200px] max-w-[100vw] w-full">
             <slot />
           </main>
         </div>
